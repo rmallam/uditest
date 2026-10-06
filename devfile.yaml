@@ -1,0 +1,49 @@
+schemaVersion: 2.2.2
+metadata:
+  name: uditest
+  displayName: uditest
+  description: Node.js app on Red Hat UDI for Dev Spaces
+  tags:
+    - UDI
+    - Node
+  attributes:
+    metadata.openshift.io/scopes: ['devspaces']
+
+components:
+  - name: tools
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel9:3.30
+      memoryLimit: 3Gi
+      memoryRequest: 1Gi
+      cpuLimit: "2"
+      cpuRequest: 200m
+      mountSources: true
+      sourceMapping: /projects
+      env:
+        - name: NODEJS_VERSION
+          value: "20"
+        - name: PORT
+          value: "3000"
+      endpoints:
+        - name: api
+          targetPort: 3000
+          exposure: public
+          protocol: http
+
+commands:
+  - id: test
+    exec:
+      component: tools
+      workingDir: ${PROJECTS_ROOT}/uditest
+      commandLine: npm test
+      group:
+        kind: test
+        isDefault: true
+  - id: run
+    exec:
+      component: tools
+      workingDir: ${PROJECTS_ROOT}/uditest
+      commandLine: npm start
+      group:
+        kind: run
+        isDefault: true

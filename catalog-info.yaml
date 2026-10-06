@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: uditest
+  description: Node.js app on Red Hat UDI for Dev Spaces
+  annotations:
+    github.com/project-slug: rmallam/uditest
+    acme.io/devfile-path: devfile.yaml
+    acme.io/devspaces-url: https://devspaces.apps.rosa.rosa-89s85.bhg0.p3.openshiftapps.com
+    acme.io/devspaces-factory-url: https://devspaces.apps.rosa.rosa-89s85.bhg0.p3.openshiftapps.com/f?url=https://github.com/rmallam/uditest&new
+  tags:
+    - nodejs
+    - udi
+    - demo
+spec:
+  type: service
+  lifecycle: experimental
+  owner: user:default/guest
